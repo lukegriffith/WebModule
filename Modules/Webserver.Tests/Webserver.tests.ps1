@@ -10,17 +10,4 @@ $module = Get-Module WebServer
 
 InModuleScope WebServer {
 
-    Describe "Testing Responser" { 
-
-        it "Should exist" {
-
-           [Responder]::new() | should be $true
-            
-        }
-
-
-
-
-
-    }
 }
