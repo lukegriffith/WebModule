@@ -15,14 +15,14 @@ Get-ChildItem $PSScriptRoot -Recurse -Filter "*.ps1" | ForEach-Object -Process {
 Class WebServer {
 
 
-    [List[Worker]] $Listeners
+    [Worker] $Worker
 
     [initialsessionstate] $SessionState
 
 
     WebServer(){
 
-        $this.Listeners = [Hashtable]::Synchronized(@{})
+        
 
         $this.SessionState = [initialsessionstate]::CreateDefault()
 
@@ -51,9 +51,7 @@ Class WebServer {
 
         $powershell.AddScript("`$i=0;Wait-Context -Listener `$Listener")
 
-        $worker = [Worker]::new($listener,$powershell)
-
-        $this.Listeners.Add($worker)       
+        $this.worker = [Worker]::new($listener,$powershell)
 
 
     }

@@ -2,12 +2,13 @@
 
 function New-Server {
     param(
-        $port
+        [int]$port = 8083
     )
 
+    $prefix = "http://*:{0}/" -f $port
+
     $server = [WebServer]::new()
-$server.CreateListener("http://*:8083/")
-$server.Listeners[0].Start()
+    $server.CreateListener($prefix)
 
 
 }
