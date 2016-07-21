@@ -19,7 +19,7 @@ Class WebServer {
 
 
     [Worker] $Worker
-    [initialsessionstate] $SessionState
+    hidden [initialsessionstate] $SessionState
 
     WebServer(){
 
