@@ -17,7 +17,7 @@ function Wait-Context {
     While ($Listener.IsListening) {
 
         $context = $Listener.Http.GetContext()
-        Initialize-Response -Context $context
+        Read-Context -Context $context
         Start-Sleep -Milliseconds 100
 
     }

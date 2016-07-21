@@ -25,7 +25,7 @@
 
 
 #>
-function Initialize-Response {
+function Read-Context {
     param(
         [System.Net.HttpListenerContext]$Context
     )
