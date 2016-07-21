@@ -10,29 +10,28 @@ Get-ChildItem $PSScriptRoot -Recurse -Filter "*.ps1" | ForEach-Object -Process {
     .  $_.fullname
 }
 
+<#
+    WebServer class contains the session state for the workers and the worker class. 
+    WebServer module is imported natively into the runsapces created, and Wait-Context is carried out on the HTTP context when the server is started.
 
+#>
 Class WebServer {
 
 
     [Worker] $Worker
-
     [initialsessionstate] $SessionState
-
 
     WebServer(){
 
-        
-
         $this.SessionState = [initialsessionstate]::CreateDefault()
-
         $this.SessionState.ImportPSModule(@("WebServer"))
-
 
     }
 
-
-    # Creates Listener object, and adds to shared hashtable
-
+    <#
+        Method constructs listener and hands to classes worker property. 
+        $this.CreateListener("http://*:8083")
+    #>
     [void]CreateListener([string]$Prefix) {
 
         $http = [HttpListener]::new()
@@ -57,7 +56,12 @@ Class WebServer {
 }
 
 
+<#
 
+    Worker class is a class that maps the runner and the listner that is running in its space.
+    Executing stop on the class will stop the HttpListener and in turn cause any powershell runspace to complete, this allows to cleanly tear down the listner without causing any locked ports.
+
+#>
 class Worker {
 
     [Listener]$HttpListener
@@ -90,7 +94,13 @@ class Worker {
 
 }
 
+<#
+    Listener class contains the HttpListener and a Boolean to let the worker know if it should be responding to requests. $_
+    Start and Stop is implemented into the Worker, Dispose is still a method on this that needs to be taken further up.
 
+    I question if I actually need the Stop and Start methods on this, and do it entierly on the worker. I need to think about this further. 
+
+#>
 class Listener {
 
     [String]$Prefix
