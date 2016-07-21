@@ -4,7 +4,7 @@ function Initialize-Response {
     )
 
     $reply = @"
-PowerShell Webserver2 v0.1  
+{'Name':'PowerShell Webserver2 v0.1'}  
 "@
 
     [byte[]]$b = [System.Text.Encoding]::utf8.getbytes($reply.tostring())

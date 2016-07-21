@@ -5,9 +5,6 @@ using Namespace System.Collections.Generic;
 
 Import-Module WebServer
 
-$module = Get-Module WebServer
-
-
 InModuleScope WebServer {
 
 }
