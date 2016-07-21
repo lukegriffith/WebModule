@@ -1,5 +1,5 @@
 using Namespace System.Net;
-using Module WebServer;
+
 
 
 function Wait-Context {
@@ -9,8 +9,10 @@ function Wait-Context {
 
     While ($Listener.IsListening) {
 
-        $response = $Listener.Http.GetContext()
-        Initialize-Response -Response $response
+        $context = $Listener.Http.GetContext()
+        $global:i++
+        Initialize-Response -Context $context
+        Start-Sleep -Milliseconds 100
 
     }
     
