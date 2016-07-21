@@ -1,5 +1,13 @@
+<#
+    .Description
+    Function is used to create an new webserver, on a defined port for localhost.
+    Server object is stored in module privatedata, and can be obtained through Get-WebServer.
+    
+    .Notes
+        Change Log:
+        21/07/2016 - Created by Luke Griffith
 
-
+#>
 function New-WebServer {
 
     param(
