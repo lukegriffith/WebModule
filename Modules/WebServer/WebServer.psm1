@@ -48,7 +48,7 @@ Class WebServer {
         $powershell = [Powershell]::Create()
         $powershell.runspace = $runspace
 
-        $powershell.AddScript("`$i=0;Wait-Context -Listener `$Listener")
+        $powershell.AddScript("Wait-Context -Listener `$Listener")
 
         $this.worker = [Worker]::new($listener,$powershell)
 
