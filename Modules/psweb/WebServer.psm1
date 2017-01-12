@@ -5,10 +5,6 @@ using Namespace System.Collections.Generic;
 using Namespace System.Collections;
 using Namespace System.Runtime;
 
-# Loading functions
-Get-ChildItem $PSScriptRoot -Recurse -Filter "*.ps1" | ForEach-Object -Process {
-    .  $_.fullname
-}
 
 <#
     WebServer class contains the session state for the workers and the worker class. 
@@ -24,7 +20,7 @@ Class WebServer {
     WebServer(){
 
         $this.SessionState = [initialsessionstate]::CreateDefault()
-        $this.SessionState.ImportPSModule(@("WebServer"))
+        $this.SessionState.ImportPSModule(@("psweb"))
 
     }
 
@@ -54,6 +50,7 @@ Class WebServer {
 
     }
 }
+
 
 
 <#
@@ -94,6 +91,8 @@ class Worker {
 
 }
 
+
+
 <#
     Listener class contains the HttpListener and a Boolean to let the worker know if it should be responding to requests. $_
     Start and Stop is implemented into the Worker, Dispose is still a method on this that needs to be taken further up.
@@ -130,6 +129,7 @@ class Listener {
 
 
 }
+
 
 
 

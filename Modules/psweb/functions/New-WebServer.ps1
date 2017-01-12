@@ -1,3 +1,6 @@
+using Module ..\WebServer.psm1
+
+
 <#
     .Description
     Function is used to create an new webserver, on a defined port for localhost.

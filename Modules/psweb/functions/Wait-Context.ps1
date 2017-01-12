@@ -1,4 +1,5 @@
-using Namespace System.Net;
+using Module ..\WebServer.psm1
+
 
 <#
     .Description
@@ -11,7 +12,7 @@ using Namespace System.Net;
 #>
 function Wait-Context {
     Param(
-        [Listener]$Listener
+        $Listener
     )
 
     While ($Listener.IsListening) {

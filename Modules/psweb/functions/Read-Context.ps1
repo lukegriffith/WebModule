@@ -1,3 +1,10 @@
+using Namespace System.Net;
+using Namespace System.Management.Automation;
+using Namespace System.Management.Automation.Runspaces;
+using Namespace System.Collections.Generic;
+using Namespace System.Collections;
+using Namespace System.Runtime;
+
 <#
 
     .Description
@@ -30,9 +37,9 @@ function Read-Context {
         [System.Net.HttpListenerContext]$Context
     )
 
-    $reply = @"
-{'Name':'PowerShell Webserver2 v0.1'}  
-"@
+    
+    [ControllerRegister]
+
 
     [byte[]]$b = [System.Text.Encoding]::utf8.getbytes($reply.tostring())
 

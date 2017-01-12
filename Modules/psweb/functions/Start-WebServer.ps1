@@ -1,3 +1,5 @@
+using Module ..\WebServer.psm1
+
 <#
     .Description 
     Given a WebServer object, it will start listening and responding to requests on the given port.
