@@ -33,11 +33,16 @@ class ControllerRegister {
     static hidden [ControllerRegister]$Register
     static [ControllerRegister]GetRegister(){
 
+        return [ControllerRegister]::Register
+    }
+
+    static [void]InitializeRegister(){
         if (-not [ControllerRegister]::Register){
             [ControllerRegister]::Register = [ControllerRegister]::new()
         }
-
-        return [ControllerRegister]::Register
+        else{
+            throw "Register already initialized."
+        }
     }
 
 }
