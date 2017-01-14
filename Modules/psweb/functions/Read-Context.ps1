@@ -36,7 +36,7 @@ using Module ..\Controller.psm1
 #>
 function Read-Context {
     param(
-        [System.Net.HttpListenerContext]$Context,
+        [System.Net.HttpListenerContext]$Context
     )
     
 
