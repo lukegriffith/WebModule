@@ -39,7 +39,9 @@ function Read-Context {
         [System.Net.HttpListenerContext]$Context
     )
     
-    $controller = [ControllerRegister]::Get($Context.Request.Url.Segments[1])
+    $register = [ControllerRegister]::GetRegister()
+
+    $controller = $register.Get($Context.Request.Url.Segments[1])
 
     $controller.SetCurrentContext($Context)
 
