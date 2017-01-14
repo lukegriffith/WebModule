@@ -1,6 +1,6 @@
 using namespace System.Collections.Generic
 using namespace System.Net
-using Module .\Controller.psm1
+using Module Controller.psm1
 
 
 [RegisterController]::InitializeRegister()
