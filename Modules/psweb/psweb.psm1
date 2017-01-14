@@ -15,8 +15,12 @@ class ControllerRegister {
     [List[Controller]]$Controllers
 
 
-    [void]Register([Controller]$Controller) {
+    ControllerRegister() {
         $this.Controllers = [List[Controller]]::new()
+    }
+
+    [void]Register([Controller]$Controller){
+        $this.Controllers.add($Controller)
     }
 
     [Controller]Get([string]$TypeName){
