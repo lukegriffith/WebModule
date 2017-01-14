@@ -2,7 +2,7 @@ using Module .\Controller.psm1
 
 
 [ControllerRegister]::InitializeRegister()
-[ControllerRegister]::Register(
+[ControllerRegister]::RegisterController(
     [Controller]::new()
 )
 

@@ -17,7 +17,7 @@ class ControllerRegister {
         return $this.Controllers.Where{$_.GetType().Name -eq $TypeName}
     }
 
-    static [void]Register([Controller]$Controller){
+    static [void]RegisterController([Controller]$Controller){
 
         [ControllerRegister]::GetRegister().Controllers.Add(
             $Controller
