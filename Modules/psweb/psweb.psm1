@@ -1,10 +1,3 @@
-using Module .\Controller.psm1
-
-
-[ControllerRegister]::InitializeRegister()
-[ControllerRegister]::RegisterController(
-    [Controller]::new()
-)
 
 
 # Loading functions
