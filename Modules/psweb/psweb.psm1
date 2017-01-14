@@ -1,8 +1,8 @@
 using Module .\Controller.psm1
 
 
-[RegisterController]::InitializeRegister()
-[RegisterController]::Register(
+[ControllerRegister]::InitializeRegister()
+[ControllerRegister]::Register(
     [Controller]::new()
 )
 
