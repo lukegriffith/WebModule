@@ -4,7 +4,8 @@ using Namespace System.Management.Automation.Runspaces;
 using Namespace System.Collections.Generic;
 using Namespace System.Collections;
 using Namespace System.Runtime;
-using Modile ..\Controller.psm1
+using Module ..\Controller.psm1
+
 
 <#
 
