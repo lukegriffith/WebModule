@@ -1,3 +1,5 @@
+using namespace System.Collections.Generic
+using namespace System.Net
 
 <#
     Has a recorded number of controllers that will be used to respond with data.
@@ -66,10 +68,3 @@ class Controller {
 
 }
 
-
-[RegisterController]::InitializeRegister()
-
-
-[RegisterController]::Register(
-    [Controller]::new()
-)
