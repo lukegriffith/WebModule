@@ -35,11 +35,13 @@ Class WebServer {
         $http.Prefixes.Add($Prefix)
 
         $listener = [Listener]::New($http, $Prefix)
+        $register = [ControllerRegister]::GetRegister()
+
 
         $runspace = [runspacefactory]::CreateRunspace($this.SessionState)
         $runspace.Open()
         $runspace.SessionStateProxy.SetVariable("Listener",$listener)
-        $runspace.SessionStateProxy.SetVariable("Register",[ControllerRegister]::GetRegister())
+        $runspace.SessionStateProxy.SetVariable("Register",$register)
         
         $powershell = [Powershell]::Create()
         $powershell.runspace = $runspace
