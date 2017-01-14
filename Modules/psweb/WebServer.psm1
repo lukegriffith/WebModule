@@ -4,7 +4,7 @@ using Namespace System.Management.Automation.Runspaces;
 using Namespace System.Collections.Generic;
 using Namespace System.Collections;
 using Namespace System.Runtime;
-
+using Module psweb;
 
 <#
     WebServer class contains the session state for the workers and the worker class. 
@@ -38,7 +38,7 @@ Class WebServer {
         $runspace = [runspacefactory]::CreateRunspace($this.SessionState)
         $runspace.Open()
         $runspace.SessionStateProxy.SetVariable("Listener",$listener)
-        
+        $runspace.SessionStateProxy.SetVariable("Register",[ControllerRegister]::GetRegister())
         
         $powershell = [Powershell]::Create()
         $powershell.runspace = $runspace
