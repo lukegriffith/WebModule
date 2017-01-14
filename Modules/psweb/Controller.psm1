@@ -18,7 +18,10 @@ class ControllerRegister {
     }
 
     static [void]Register([Controller]$Controller){
-        $this.Controllers.add($Controller)
+
+        [ControllerRegister]::GetRegister().Controllers.Add(
+            $Controller
+        )
     }
 
     <#
