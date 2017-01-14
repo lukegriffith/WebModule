@@ -4,7 +4,8 @@ using Namespace System.Management.Automation.Runspaces;
 using Namespace System.Collections.Generic;
 using Namespace System.Collections;
 using Namespace System.Runtime;
-using Module psweb;
+using Module ..\Controller.psm1;
+
 
 <#
     WebServer class contains the session state for the workers and the worker class. 
