@@ -36,16 +36,45 @@ function Read-Context {
     param(
         [System.Net.HttpListenerContext]$Context
     )
-
     
-    [ControllerRegister]
+    $controller = [ControllerRegistry]::Get($Context.Url.Segment[1])
 
+    $controller.SetCurrentContext($Context)
 
-    [byte[]]$b = [System.Text.Encoding]::utf8.getbytes($reply.tostring())
+    $method = $controller.gettype().GetMethods().Where{$_.Name -eq $Context.request.HttpMethod}
 
-           
-    $Context.Response.ContentLength64 = $b.Length         
-    $Context.Response.OutputStream.write($b, 0, $b.Length)
+    $ParamArray = @()
 
+    if ($Context.url.Query){
 
+        $QueryDict = $Context.Url.Query.replace("?","").split("&") | convertfrom-stringdata
+
+        $method.GetParameters() | Sort-Object -Property Position |
+        ForEach-Object {
+            if ($QueryDict.ContainsKey($_.Name)){
+
+                $ParamArray.Add($QueryDict[$_.Name])
+
+            }
+            else {
+
+                $ParamArray.Add($Null)
+
+            }
+        }
+    }
+
+    $reply = $method.Invoke($controller, $ParamArray)
+
+    if ($method.ReturnType -eq "System.String"){
+
+        [byte[]]$b = [System.Text.Encoding]::utf8.getbytes($reply.tostring())
+
+        $Context.Response.ContentLength64 = $b.Length
+
+        $Context.Response.OutputStream.write($b, 0, $b.Length)
+    }
+    else {
+        $Context.Response.OutputStream.Close()
+    }
 }

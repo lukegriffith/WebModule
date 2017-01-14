@@ -8,48 +8,33 @@ Get-ChildItem $PSScriptRoot -Recurse -Filter "*.ps1" | ForEach-Object -Process {
 
 
 <#
-
-    Have a class that can be obtained by using module psweb, this class can be used to register controllers. 
-
-#>
-
-<#
     Has a recorded number of controllers that will be used to respond with data.
 #>
 class ControllerRegister { 
 
-    [List[Controller]]$Controlers
+    [List[Controller]]$Controllers
 
 
     [void]Register([Controller]$Controller) {
-
+        $this.Controllers = [List[Controller]]::new()
     }
 
-    [psWebResponse]ProcessRequest([System.Net.HttpListenerRequest]$request){
-
-        $url = $request.url
-        
-        $controller = $this.Controlers | Where-Object {$_.gettype().name -eq $url.Segments[1]}
-        if (! $controller   ) {
-            # return pswebrespons with error
-            throw "Controller not found"
-        }
-        
-
-        $method = $controller.gettype().GetMethods().Where{$_.Name -eq $request.HttpMethod}
-
-        if ( ! $method ) { 
-            # return pswebrespons with error
-            throw "Method not found" 
-        }
-
-        # empty array is for parameters.
-        return $method.Invoke($controller,@())
-
-
+    [Controller]Get([string]$TypeName){
+        return $this.Controllers.Where{$_.GetType().Name -eq $TypeName}
     }
 
-    
+    <#
+        Static instance to allow static method to return single object.
+    #>
+    static hidden [ControllerRegister]$Register
+    static [ControllerRegister]GetRegister(){
+
+        if (-not [ControllerRegister]::Register){
+            [ControllerRegister]::Register = [ControllerRegister]::new()
+        }
+
+        return [ControllerRegister]::Register
+    }
 
 }
 
@@ -64,19 +49,19 @@ class Controller {
 
     [HttpListenerContext]$Context
 
+    [String]$Data
+
     [void]SetCurrentContext([HttpListenerContext]$Context){
         $this.Context = $Context
     }
 
     [String]Get() {
-        return "{'Name':'PowerShell Webserver2 v0.1'}"
+        return "{'Name':'PowerShell Webserver2 v0.1','Data':'$($this.Data)'}"
+    }
+
+    [void]Post([String]$Data){
+        $this.Data = $Data
     }
 
 }
 
-
-class psWebResponse {
-
-    [String]$Content 
-
-}
