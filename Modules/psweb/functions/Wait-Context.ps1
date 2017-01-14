@@ -1,4 +1,5 @@
 using Module ..\WebServer.psm1
+using Module ..\Controller.psm1
 
 
 <#
@@ -12,13 +13,15 @@ using Module ..\WebServer.psm1
 #>
 function Wait-Context {
     Param(
-        $Listener
+        $Listener,
+        $Register
     )
+
 
     While ($Listener.IsListening) {
 
         $context = $Listener.Http.GetContext()
-        Read-Context -Context $context
+        Read-Context -Context $context -Register $Register
         Start-Sleep -Milliseconds 100
 
     }

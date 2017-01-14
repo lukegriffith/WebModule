@@ -36,12 +36,12 @@ using Module ..\Controller.psm1
 #>
 function Read-Context {
     param(
-        [System.Net.HttpListenerContext]$Context
+        [System.Net.HttpListenerContext]$Context,
+        [ControllerRegister]$Register
     )
     
-    $register = [ControllerRegister]::GetRegister()
 
-    $controller = $register.Get($Context.Request.Url.Segments[1])
+    $controller = $Register.Get($Context.Request.Url.Segments[1])
 
     $controller.SetCurrentContext($Context)
 
@@ -60,12 +60,15 @@ function Read-Context {
                 $ParamArray.Add($QueryDict[$_.Name])
 
             }
+
             else {
 
                 $ParamArray.Add($Null)
 
             }
+
         }
+
     }
 
     $reply = $method.Invoke($controller, $ParamArray)

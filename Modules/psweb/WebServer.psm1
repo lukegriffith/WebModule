@@ -4,7 +4,7 @@ using Namespace System.Management.Automation.Runspaces;
 using Namespace System.Collections.Generic;
 using Namespace System.Collections;
 using Namespace System.Runtime;
-using Module .\Controller.psm1;
+
 
 
 <#
@@ -35,12 +35,14 @@ Class WebServer {
         $http.Prefixes.Add($Prefix)
 
         $listener = [Listener]::New($http, $Prefix)
-
+        $register = Get-Register
 
         $runspace = [runspacefactory]::CreateRunspace($this.SessionState)
         $runspace.Open()
         $runspace.SessionStateProxy.SetVariable("Listener",$listener)
-        
+        $runspace.SessionStateProxy.SetVariable("Register",$register)
+
+
         $powershell = [Powershell]::Create()
         $powershell.runspace = $runspace
 
