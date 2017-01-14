@@ -3,8 +3,8 @@ using Namespace System.Management.Automation;
 using Namespace System.Management.Automation.Runspaces;
 using Namespace System.Collections.Generic;
 
-Import-Module WebServer
+Import-Module psweb
 
-InModuleScope WebServer {
+InModuleScope psweb {
 
 }

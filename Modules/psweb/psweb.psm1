@@ -1,5 +1,5 @@
 using namespace System.Collections.Generic
-
+using namespace System.Net
 
 # Loading functions
 Get-ChildItem $PSScriptRoot -Recurse -Filter "*.ps1" | ForEach-Object -Process {
@@ -61,6 +61,12 @@ class ControllerRegister {
 
 #>
 class Controller {
+
+    [HttpListenerContext]$Context
+
+    [void]SetCurrentContext([HttpListenerContext]$Context){
+        $this.Context = $Context
+    }
 
     [String]Get() {
         return "{'Name':'PowerShell Webserver2 v0.1'}"
