@@ -1,4 +1,4 @@
-using Module .\Controller.psm1
+using Module ..\Controller.psm1
 
 
 function Register-Controller{
