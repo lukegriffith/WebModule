@@ -4,7 +4,7 @@ using Namespace System.Management.Automation.Runspaces;
 using Namespace System.Collections.Generic;
 using Namespace System.Collections;
 using Namespace System.Runtime;
-using Module .\Controller.psm1
+using Module ..\Controller.psm1
 
 
 <#
@@ -39,7 +39,7 @@ function Read-Context {
         [System.Net.HttpListenerContext]$Context
     )
     
-    $controller = [ControllerRegistry]::Get($Context.Url.Segments[1])
+    $controller = [ControllerRegister]::Get($Context.Url.Segments[1])
 
     $controller.SetCurrentContext($Context)
 
