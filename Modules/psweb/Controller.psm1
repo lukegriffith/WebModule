@@ -13,12 +13,12 @@ class ControllerRegister {
         $this.Controllers = [List[Controller]]::new()
     }
 
-    [void]Register([Controller]$Controller){
-        $this.Controllers.add($Controller)
-    }
-
     [Controller]Get([string]$TypeName){
         return $this.Controllers.Where{$_.GetType().Name -eq $TypeName}
+    }
+
+    static [void]Register([Controller]$Controller){
+        $this.Controllers.add($Controller)
     }
 
     <#
