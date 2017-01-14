@@ -37,10 +37,10 @@ using Module ..\Controller.psm1
 function Read-Context {
     param(
         [System.Net.HttpListenerContext]$Context,
-        [ControllerRegister]$Register
     )
     
 
+    $Register = Get-Register 
     $controller = $Register.Get($Context.Request.Url.Segments[1])
 
     $controller.SetCurrentContext($Context)

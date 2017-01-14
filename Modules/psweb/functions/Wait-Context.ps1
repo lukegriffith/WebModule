@@ -13,8 +13,7 @@ using Module ..\Controller.psm1
 #>
 function Wait-Context {
     Param(
-        $Listener,
-        $Register
+        $Listener
     )
 
 
