@@ -13,6 +13,11 @@ class ControllerRegister {
         $this.Controllers = [List[Controller]]::new()
     }
 
+    <#
+    !!!! ERROR THROWING ON THIS METHOD.
+
+    #>
+
     [Controller]Get([string]$TypeName){
         return $this.Controllers.Where{$_.GetType().Name -eq $TypeName}
     }
