@@ -73,7 +73,7 @@ function Read-Context {
 
     $reply = $method.Invoke($controller, $ParamArray)
 
-    if ($method.ReturnType -eq "System.String"){
+    if ($method.ReturnType -eq [System.String]){
 
         [byte[]]$b = [System.Text.Encoding]::utf8.getbytes($reply.tostring())
 
