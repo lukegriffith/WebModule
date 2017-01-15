@@ -68,7 +68,7 @@ class Controller {
         return "{'Name':'PowerShell Webserver2 v0.1','Data':'$($this.Data)'}"
     }
 
-    [void]Post([String]$Data){
+    [void]Post([String]$Data,[String]$Data2){
         $this.Data = $Data
     }
 
