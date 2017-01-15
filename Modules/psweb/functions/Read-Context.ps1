@@ -59,13 +59,13 @@ function Read-Context {
         ForEach-Object {
             if ($QueryDict.ContainsKey($_.Name)){
 
-                $ParamArray.Add($QueryDict[$_.Name])
+                $ParamArray += $QueryDict[$_.Name]
 
             }
 
             else {
 
-                $ParamArray.Add($Null)
+                $ParamArray += $Null
 
             }
 
