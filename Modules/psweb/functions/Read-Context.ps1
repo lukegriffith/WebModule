@@ -49,7 +49,7 @@ function Read-Context {
 
     $ParamArray = @()
 
-    if ($Context.url.Query){
+    if ($Context.Request.url.Query){
 
         $QueryDict = $Context.Url.Query.replace("?","").split("&") | convertfrom-stringdata
 
