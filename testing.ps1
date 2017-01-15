@@ -1,5 +1,9 @@
-﻿using Module WebServer
+﻿using Module ./Modules/psweb/Controller.psm1
 
-$server = [WebServer]::new()
-$server.CreateListener("http://*:8083/")
-$server.Worker.Start()
+[ControllerRegister]::InitializeRegister()
+[ControllerRegister]::RegisterController([Controller]::new())
+
+$a = [ControllerRegister]::GetRegister()
+
+$a.Get("Controller").Post("Testing")
+$a.Get("Controller").Get()

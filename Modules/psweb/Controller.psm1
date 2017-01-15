@@ -19,7 +19,7 @@ class ControllerRegister {
     #>
 
     [Controller]Get([string]$TypeName){
-        return $this.Controllers.Where{$_.GetType().Name -eq $TypeName}
+        return $this.Controllers.Where{$_.GetType().Name -eq $TypeName}|Select-Object -First 1
     }
 
     static [void]RegisterController([Controller]$Controller){
@@ -59,9 +59,7 @@ class ControllerRegister {
 class Controller {
 
     [HttpListenerContext]$Context
-
     [String]$Data
-
     [void]SetCurrentContext([HttpListenerContext]$Context){
         $this.Context = $Context
     }
