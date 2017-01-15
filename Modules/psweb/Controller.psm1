@@ -69,7 +69,7 @@ class Controller {
     }
 
     [void]Post([String]$Data,[String]$Data2){
-        $this.Data = $Data
+        $this.Data = $Data + $Data2
     }
 
 }
