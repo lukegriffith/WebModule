@@ -40,8 +40,10 @@ function Read-Context {
     )
     
 
+    $Request = $Context.Request
+
     $Register = Get-Register 
-    $controller = $Register.Get($Context.Request.Url.Segments[1])
+    $controller = $Register.Get($Request.Url.Segments[1])
 
     $controller.SetCurrentContext($Context)
 
@@ -49,9 +51,9 @@ function Read-Context {
 
     $ParamArray = @()
 
-    if ($Context.Request.url.Query){
+    if ($Request.url.Query){
 
-        $QueryDict = $Context.Url.Query.replace("?","").split("&") | convertfrom-stringdata
+        $QueryDict = $Request.Url.Query.replace("?","").split("&") | convertfrom-stringdata
 
         $method.GetParameters() | Sort-Object -Property Position |
         ForEach-Object {
