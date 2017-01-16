@@ -4,14 +4,14 @@ using Namespace System.Management.Automation.Runspaces;
 using Namespace System.Collections.Generic;
 using Namespace System.Collections;
 using Namespace System.Runtime;
-using Module ..\Controller.psm1
+using Module ..\apiFunction.psm1
 
 
 <#
 
     .Description
     Function is used to abstract the response to the requester. WebServer passes this off to lower functions to process the request.
-    This will eventually hand over to a MVC framework that will handle binding and controllers, and mapping things like parameters to functions.
+    This will eventually hand over to a MVC framework that will handle binding and apiFunctions, and mapping things like parameters to functions.
 
 
     Fun parts of $Context
@@ -43,37 +43,36 @@ function Read-Context {
     $Request = $Context.Request
 
     $Register = Get-Register 
-    $controller = $Register.Get($Request.Url.Segments[1])
+    $apiFunction = $Register.Get($Request.Url.Segments[1])
 
-    $controller.SetCurrentContext($Context)
+    #$apiFunction.SetCurrentContext($Context)
 
-    $method = $controller.gettype().GetMethods().Where{$_.Name -eq $Context.request.HttpMethod}
+    $paramDict = @{}
 
-    $ParamArray = @()
-
-    if ($Request.url.Query){
+    if ($apiFunction.Parameters){
 
         $QueryDict = $Request.Url.Query.replace("?","").split("&") | convertfrom-stringdata
 
-        $method.GetParameters() | Sort-Object -Property Position |
-        ForEach-Object {
-            if ($QueryDict.ContainsKey($_.Name)){
+        $apiFunction.Parameters.Keys | ForEach-Object -Process {
+            if ($QueryDict.ContainsKey($_)){
 
-                $ParamArray += $QueryDict[$_.Name]
-
+                if ($_ -eq "context") {
+                    $paramDict[$_] = $Context
+                }
+                else {
+                    $paramDict[$_] = $QueryDict[$_]
+                }
+            }
+            elseif ($apiFunctions.Parameters[$_].Attributes.Mandatory) {
+                Throw "Unable to process, mandatory parameters missing."
             }
 
-            else {
-
-                $ParamArray += $Null
-
-            }
 
         }
 
     }
 
-    $reply = $method.Invoke($controller, $ParamArray)
+    $reply = & $apiFunction @paramDict
 
     if ($method.ReturnType -eq [System.String]){
 

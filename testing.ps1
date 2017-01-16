@@ -1,9 +1,6 @@
-﻿using Module ./Modules/psweb/Controller.psm1
+﻿
 
-[ControllerRegister]::InitializeRegister()
-[ControllerRegister]::RegisterController([Controller]::new())
+Import-Module psweb
 
-$a = [ControllerRegister]::GetRegister()
 
-$a.Get("Controller").Post("Testing")
-$a.Get("Controller").Get()
+Register-Controller -ModuleName .\WebApi.psm1
