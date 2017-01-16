@@ -31,8 +31,7 @@ function Register-Controller{
         elseif ($PSCmdlet.ParameterSetName -eq "ByModulePath") {
 
             $ModulePath = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($ModulePath)
-            Import-Module -Name $ModulePath
-            Get-Command -Module $ModulePath | ForEach-Object -Process {
+            (Import-Module -Name $ModulePath -PassThru).ExportedCommands.Values | ForEach-Object -Process {
                 [ControllerRegister]::RegisterController($_)
             }
 

@@ -20,7 +20,7 @@ class ControllerRegister {
     #>
 
     [CommandInfo]Get([string]$FunctName){
-        return $this.Controllers.Where{$_.Name -eq $FunctName}
+        return $this.Controllers.Where{$_.Name -eq $FunctName}[0]
     }
 
     static [void]RegisterController([CommandInfo]$Controller){

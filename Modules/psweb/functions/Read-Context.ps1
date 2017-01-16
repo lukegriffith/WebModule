@@ -4,7 +4,6 @@ using Namespace System.Management.Automation.Runspaces;
 using Namespace System.Collections.Generic;
 using Namespace System.Collections;
 using Namespace System.Runtime;
-using Module ..\apiFunction.psm1
 
 
 <#
@@ -74,15 +73,12 @@ function Read-Context {
 
     $reply = & $apiFunction @paramDict
 
-    if ($method.ReturnType -eq [System.String]){
-
+    if ($reply) {
         [byte[]]$b = [System.Text.Encoding]::utf8.getbytes($reply.tostring())
-
         $Context.Response.ContentLength64 = $b.Length
-
         $Context.Response.OutputStream.write($b, 0, $b.Length)
     }
     else {
-        $Context.Response.OutputStream.Close()
+        $Context.Response.Close()
     }
 }
