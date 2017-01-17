@@ -1,6 +1,5 @@
-# psWeb
-
-Started again on PowerShell [WebServer](https://github.com/lukemgriffith/webServer) I started over a year ago. Trying to break down and make a hardier solution than I had before.
+# PowerShell Web Module
+Publish powershell modules to a local webAPI, registering all exported module functions as web methods with parameter binding and local module data available. 
 
 # Recently Added
 
