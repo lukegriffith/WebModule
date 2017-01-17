@@ -6,11 +6,6 @@ Easily register all exported module functions as web methods with parameter bind
 - Extend webserver with PowerShell modules. Exported functions become WebMethods 
 - Use classes to store data locally to the module.
 
-
-
-![ShellView](https://i.imgur.com/1TntdAw.jpg) 
-
-
 Setup API
 
     Import-Module psweb
