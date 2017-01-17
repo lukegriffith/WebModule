@@ -1,15 +1,25 @@
 # PowerShell Web Module
-Publish powershell modules to a local webAPI, registering all exported module functions as web methods with parameter binding and local module data available. 
+PowerShell framework for publishing modules build around .NET HTTPListener API. 
+Easily register all exported module functions as web methods with parameter binding and local module data available. 
 
 # Recently Added
-
-- Extend webserver with PowerShell modules. Exported functions become API's 
+- Extend webserver with PowerShell modules. Exported functions become WebMethods 
 - Use classes to store data locally to the module.
 
 
 
 ![ShellView](https://i.imgur.com/1TntdAw.jpg) 
 
+
+Setup API
+
+    Import-Module psweb
+    Register-Controller -ModulePath .\WebApi.psm1
+
+    New-WebServer -port 8082
+    Get-WebServer | Start-WebServer
+
+Example of using web methods. 
 
     PS C:\Users\lukem\Documents\GitHub\psweb> irm -uri "http://localhost:8082/get-data"
 
