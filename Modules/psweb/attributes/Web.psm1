@@ -1,4 +1,13 @@
+<#
+    Web.psm1
 
+    .Synopsis
+        Class file for Web attributes, these are used on framework controllers.
+
+    .Notes
+        Date: 24/01/2017
+        Author: Luke Griffith
+#>
 
 enum httpMethod {
     GET
@@ -7,8 +16,7 @@ enum httpMethod {
     DELETE
 }
 
-
-class Web : System.Attribute {
+class WebAttribute : System.Attribute {
 
     [string]$Method = "GET"
     [String]$Route

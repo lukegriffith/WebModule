@@ -1,6 +1,7 @@
 using namespace System.Management.Automation
 using namespace System.Collections.Generic
 using namespace System.Net
+using module ..\attributes\Web.psm1
 
 <#
     Has a recorded number of controllers that will be used to respond with data.
@@ -47,5 +48,56 @@ class ControllerRegister {
             throw "Register already initialized."
         }
     }
+
+}
+
+
+class Controller {
+
+    [String]$Route
+
+
+    # Method returns dictionary of  web methods declared on class
+    [Dictionary[[httpMethod],[String]]] GetWebMethods() {
+
+        # initialize dictionary
+        $dict = [Dictionary[[httpMethod],[String]]]::new()
+        
+        # iterate through each class method, where custom attributes are defined.
+        $this.GetType().GetMethods().Where{$_.CustomAttributes}.ForEach{
+            
+            $methodName = $_.name
+            $WebAttribute = $_.CustomAttributes
+
+            # Mapping declared methods to enum values.
+            switch($WebAttribute) {
+                {$_.TypedValue -eq '"GET"'} {$httpMethod = [httpMethod]::GET } 
+                {$_.TypedValue -eq '"POST"'} {$httpMethod = [httpMethod]::POST } 
+                {$_.TypedValue -eq '"DELETE"'} {$httpMethod = [httpMethod]::DELETE } 
+                {$_.TypedValue -eq '"PUT"'} {$httpMethod = [httpMethod]::PUT } 
+            }
+
+            $dict.Add($httpMethod, $methodName)
+            
+        }
+
+        return $dict
+
+
+        
+
+
+
+    }
+}
+
+
+class ClassController : Controller { 
+
+
+}
+
+class FunctionController : Controller { 
+
 
 }

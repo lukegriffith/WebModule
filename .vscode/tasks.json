@@ -9,8 +9,6 @@
                 "-ExecutionPolicy", 
                 "Bypass", 
                 "Invoke-pSAKE",
-		        "-BuildFile",
-		        "${cwd}\\build.ps1",
                 "-taskList"
             ],
 	"showOutput": "always",
