@@ -57,6 +57,12 @@ class Controller {
     [String]$Route
 
 
+}
+
+
+class ClassController : Controller { 
+
+
     # Method returns dictionary of  web methods declared on class
     [Dictionary[[httpMethod],[String]]] GetWebMethods() {
 
@@ -89,11 +95,6 @@ class Controller {
 
 
     }
-}
-
-
-class ClassController : Controller { 
-
 
 }
 
